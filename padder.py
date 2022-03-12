@@ -38,7 +38,7 @@ def padder(header = "begin", footer = "end", filler = "-", count = 2):
     return sofline, eofline
 header = 'Starting this header'
 footer = 'Ending this footer'
-num_spaces = 6 #required tp be >= difference of the strings(if they aren't equal size)
+num_spaces = 6 #required to be >= difference of the strings(if they aren't equal size)
 filler = '-'
 head, foot = padder(header = header, footer = footer, filler = filler, count = num_spaces)
 print(head)
