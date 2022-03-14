@@ -21,11 +21,10 @@ def padder(header = "begin", footer = "end", filler = "-", count = 2):
         elif diff % 2 != 0 and diff > 0:
             if offset % 2 == 0:
                 eofline = eofline + filler
-            if diff % 2 != 0:
-                if offset == 0 or offset % 2 == 0:
-                    sofline = sofline + filler
-                if diff % 2 != 0 and diff <= 1:
-                    eofline = eofline + filler
+            if offset == 0 or offset % 2 == 0:
+                sofline = sofline + filler
+            if diff == 1:
+                eofline = eofline + filler
             else:
                 eofline = eofline[:-1]
         elif diff % 2 == 0 and diff > 0:
