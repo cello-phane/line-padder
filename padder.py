@@ -1,4 +1,6 @@
 def padder(header = "begin", footer = "end", filler = "-", count = 2):
+    if not filler:
+        filler = ' '
     diff = int(len(header) - len(footer))
     if int(abs(diff)/2) + 1 > count:
         if count < abs(diff):
