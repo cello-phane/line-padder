@@ -1,38 +1,38 @@
 def padder(header = "begin", footer = "end", filler = "-", count = 2):
     if not filler:
         filler = ' '
-    diff = int(len(header) - len(footer))
-    if int(abs(diff)/2) + 1 > count:
-        if count < abs(diff):
-            count = int(abs(diff) / 2) + 1
-    tabs = (filler * count)
-    sofline = tabs + header + tabs
-    eofline = tabs + footer + tabs
-    if len(sofline) > len(eofline):
-        offset = int((len(sofline) - len(eofline)) / 2)
-        if offset:
-            sofline = sofline[offset:-abs(offset + 1)]
-    elif len(eofline) > len(sofline):
-        offset = int((len(eofline) - len(sofline)) / 2)
-        if offset:
-            eofline = eofline[offset:-abs(offset)]
-        
-    if diff != 0:
-        if diff % 2 != 0 and diff < 0:
-            eofline = eofline[:-1]
-        elif diff % 2 != 0 and diff > 0:
-            if offset % 2 == 0:
-                eofline = eofline + filler
-            if offset == 0 or offset % 2 == 0:
-                sofline = sofline + filler
-            if diff == 1:
-                eofline = eofline + filler
-        elif diff % 2 == 0 and diff > 0:
-            sofline = sofline + filler
-    return sofline, eofline
+    pads = filler * count
+    len_pads = len(pads)
+    len_header = len(header)
+    len_footer = len(footer)
+    padded_header_size = len_header + len_pads
+    padded_footer_size = len_footer + len_pads
+    offset = int(abs(len_header - len_footer) / 2)
+    if padded_header_size > padded_footer_size:
+        if offset % 2 != 0 or padded_footer_size % 2 != 0:
+            fillc = count - offset - 1
+        else:
+            fillc = count - offset
+        header_ = (filler * (count - offset)) + header + (filler * fillc)
+        footer_ = pads + footer + pads
+    elif padded_footer_size > padded_header_size:
+        if offset % 2 != 0 or padded_header_size % 2 != 0:
+            fillc = count - offset - 1
+        else:
+            fillc = count - offset
+        footer_ = (filler * (count - offset)) + footer + (filler * fillc)
+        header_ = pads + header + pads
+    else:
+        header_ = pads + header + pads
+        footer_ = pads + footer + pads
+    if len(header_) > padded_header_size:
+        header_ = header_[:padded_header_size+len_pads]
+    if len(footer_) > padded_footer_size:
+        footer_ = footer_[:padded_footer_size+len_pads]
+    return header_, footer_
 header = 'Header Title'
 footer = 'This is a footer'
-num_spaces = 10 #required to be >= difference of the strings for a symmetrical formatting
+num_spaces = 4 #required to be >= difference of the strings for a symmetrical formatting
 filler = '-'
 head, foot = padder(header = header, footer = footer, filler = filler, count = num_spaces)
 print(head)
