@@ -1,5 +1,5 @@
 def padder(header = "begin", footer = "end", filler = "-", count = 2):
-    if not filler:
+    if not filler or count == 0:
         filler = ' '
     pads = filler * count
     len_pads = len(pads)
@@ -24,19 +24,19 @@ def padder(header = "begin", footer = "end", filler = "-", count = 2):
         footer_ = pads + footer + pads
     len_header_ = len(header_)
     if len_header != len(footer_):
-        if len(footer_) % 2 == 0 and count > len(footer_)::
+        if len(footer_) % 2 == 0 and count > len(footer_):
             footer_ = footer_ + filler * (abs(len(header_) - len(footer_)))
         if len(header_) % 2 == 0 and count > len(header_):
-            header_ = header_ + filler * (abs(len(header_) - len(footer_)))
-    if len(header_) > len(footer_):
+            header_ = header_ + filler * (abs(len(footer_) - len(header_)))
+    if len(header_) > len(footer_) and count > len(header_):
         footer_ += filler
-    if len(footer_) > len(header_):
+    if len(footer_) > len(header_) and count > len(footer_):
         header_ += filler
     return header_, footer_
 header = 'header'
-footer = 'Footer'
-num_spaces = 4
-filler = '-'
+footer = 'footer'
+num_spaces = 2
+filler = '`'
 head, foot = padder(header = header, footer = footer, filler = filler, count = num_spaces)
 print(head)
 print(foot)
