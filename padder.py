@@ -24,9 +24,9 @@ def padder(header = "begin", footer = "end", filler = "-", count = 2):
         footer_ = pads + footer + pads
     len_header_ = len(header_)
     if len_header != len(footer_):
-        if len(footer_) % 2 == 0:
+        if len(footer_) % 2 == 0 and count > len(footer_)::
             footer_ = footer_ + filler * (abs(len(header_) - len(footer_)))
-        if len(header_) % 2 == 0:
+        if len(header_) % 2 == 0 and count > len(header_):
             header_ = header_ + filler * (abs(len(header_) - len(footer_)))
     if len(header_) > len(footer_):
         footer_ += filler
