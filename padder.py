@@ -34,51 +34,72 @@ def padder(header = "begin", footer = "end", filler = "-", count = 0):
         if len(footer_) % 2 == 0 and len(header_) % 2 != 0:
             header_ += filler
     return header_, footer_
-header = 'columne'
-footer = 'this footer'
+def columnize(max_line_len, width, head, foot):
+    fill_ws = int(abs(len(head) - max_line_len)/2) or 1
+    if len(head) % 2 == 0:
+        if len(head) > (fill_ws*2) + max_line_len:
+            if not header:
+                hright_ = filler + corner
+            else:
+                hright_ = corner
+        else:
+            if not header and max_line_len % 2 != 0:
+                hright_ = filler + corner
+            else:
+                if max_line_len % 2 != 0:
+                    hright_ = filler + corner
+                else:
+                    hright_ = corner
+        hleft_ = corner
+    else:
+        hleft_ = corner
+        hright_ = corner
+        if max_line_len % 2 == 0:
+            if max_line_len > len(header):
+                head = head[:-1]
+                foot = foot[:-1]
+    if footer:
+        fill_ = abs(int(len(head) / 2) - int(len(footer)/2))
+        if fill_ % 2 != 0 and len(footer) % 2 != 0:
+            if len(head) % 2 != 0:
+                fleft_ = corner + (filler * (fill_+1))
+            else:
+                fleft_ = corner + (filler * (fill_-1))
+        elif fill_ % 2 == 0 and len(footer) % 2 != 0:
+            if len(head) % 2 != 0:
+                fleft_ = corner + (filler * (fill_))
+            else:
+                fleft_ = corner + (filler * (fill_-1))
+        elif fill_ % 2 != 0 and len(footer) % 2 == 0:
+            if len(head) % 2 != 0:
+                fleft_ = corner + (filler * (fill_+1))
+            else:
+                fleft_ = corner + (filler * (fill_))
+        else:
+            if len(head) % 2 != 0:
+                fleft_ = corner + (filler * (fill_+1))
+            else:
+                fleft_ = corner + (filler * (fill_))
+        fright_ = (filler * (fill_)) + corner
+        foot = footer
+    else:
+        fleft_ = hleft_
+        fright_ = hright_
+    #return formatted header and footer
+    return fleft_, fright_, hright_, hleft_, head, foot
+header = 'Column 1'
+footer = 'End Column 1'
 filler = '-'
 corner = '+'
-line = 'data data data'
-width = int(len(line)/2)+1
-head, foot = padder(header = header, footer = '', filler = filler, count = width)
-fill_ws = int(abs(len(head) - len(line))/2) or 1
-if len(head) % 2 == 0:
-    if len(head) > (fill_ws*2) + len(line):
-        fill_ws += 1
-        if not header:
-            right_ = filler + corner
-        else:
-            right_ = corner
-    else:
-        if not header and len(line) % 2 != 0:
-            right_ = filler + corner
-        else:
-            if len(line) % 2 != 0:
-                right_ = filler + corner
-            else:
-                right_ = corner
-    line = ' ' * (fill_ws) + line + ' ' * (fill_ws)
-    left_ = corner
-else:
-    left_ = corner
-    right_ = corner
-    if len(line) % 2 == 0:
-        if len(line) > len(header):
-            head = head[:-1]
-            foot = foot[:-1]
-        else:
-            line += ' '
-
-    line = ' ' * (fill_ws) + line + ' ' * (fill_ws)
-print(left_ + head + right_)
-print('|' + line + '|')
-if footer:
-    if int(width/2)-1 % 2 != 0:
-        fill_ = (int(width/2)-1)-1
-        left_ = corner + (filler * (fill_+1))
-    else:
-        fill_ = (int(width/2)-1)-1
-        left_ = corner + (filler * fill_)
-    foot = footer
-    right_ = (filler * fill_) + corner
-print(left_ + foot + right_)
+lines = ['data is here','more data on this second row','even more']
+maxlinelen = len(max(lines, key = len))
+if len(header) > maxlinelen:
+    maxlinelen = len(header)
+width = int(maxlinelen/2)+1
+head_, foot_ = padder(header = header, footer = '', filler = filler, count = width)
+fleft, fright, hright, hleft, head, foot = columnize(max_line_len = maxlinelen, width=int(maxlinelen/2)+1, head = head_, foot = foot_)
+#print out column 1
+print(hleft + head + hright)
+for line in lines:
+    print('| ' + line.ljust(maxlinelen,' ') + ' |')
+print(fleft + foot + fright)
