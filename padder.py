@@ -62,8 +62,8 @@ def columnize(max_line_len, width, head, foot):
     fright_ = hright_
     #return formatted header and footer
     return fleft_, fright_, hright_, hleft_, head, foot
-header = 'The Shining Column of Data'
-footer = 'The red typewriter is typing by itself'
+header = 'The Shining Column Data'
+footer = 'This footer was typed by a ghost'
 filler = '-'
 corner = '*'
 lines = ['all code and no compile makes jack nullboy',
@@ -73,21 +73,12 @@ lines = ['all code and no compile makes jack nullboy',
 		'all code and no compile makes jack a null b',
 		'all code and no compile makes jack a null bo']
 maxlinelen = len(max(lines, key = len))
-if len(header) > maxlinelen:
-    maxlinelen = len(header)+1
-    width = int(maxlinelen/2)+1
-    print(width)
-elif len(footer) > maxlinelen:
-	maxlinelen = len(footer)+1
-	width = int(maxlinelen/2)+1
-	print(width)
+diff = int((maxlinelen - len(max(header, footer)))/2)
+if diff % 2 == 0:
+  width = int(maxlinelen/diff) + (divmod(diff, 2)[0] - divmod(diff, 2)[1]) 
 else:
-  diff = int((maxlinelen - len(max(header, footer)))/2)
-  if diff % 2 == 0:
-  	width = int(maxlinelen/diff) + (divmod(diff, 2)[0] - divmod(diff, 2)[1]) 
-  else:
-  	width = int(maxlinelen/diff)+1 + divmod(diff, 2)[0]  + divmod(diff, 2)[1]
-head_, foot_ = padder(header = header, footer = footer, filler = filler, count = width)
+  width = int(maxlinelen/diff)+1 + divmod(diff, 2)[0]  + divmod(diff, 2)[1]
+head_, foot_ = padder(header = header, footer = footer, filler = filler, count = width+1)
 fleft, fright, hright, hleft, head, foot = columnize(max_line_len = maxlinelen, width=int(maxlinelen/2)+1, head = head_, foot = foot_)
 #print out column 1
 for idx, line in enumerate(lines):
