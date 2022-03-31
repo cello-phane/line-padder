@@ -58,48 +58,45 @@ def columnize(max_line_len, width, head, foot):
             if max_line_len > len(header):
                 head = head[:-1]
                 foot = foot[:-1]
-    if footer:
-        fill_ = abs(int(len(head) / 2) - int(len(footer)/2))
-        if fill_ % 2 != 0 and len(footer) % 2 != 0:
-            if len(head) % 2 != 0:
-                fleft_ = corner + (filler * (fill_+1))
-            else:
-                fleft_ = corner + (filler * (fill_-1))
-        elif fill_ % 2 == 0 and len(footer) % 2 != 0:
-            if len(head) % 2 != 0:
-                fleft_ = corner + (filler * (fill_))
-            else:
-                fleft_ = corner + (filler * (fill_-1))
-        elif fill_ % 2 != 0 and len(footer) % 2 == 0:
-            if len(head) % 2 != 0:
-                fleft_ = corner + (filler * (fill_+1))
-            else:
-                fleft_ = corner + (filler * (fill_))
-        else:
-            if len(head) % 2 != 0:
-                fleft_ = corner + (filler * (fill_+1))
-            else:
-                fleft_ = corner + (filler * (fill_))
-        fright_ = (filler * (fill_)) + corner
-        foot = footer
-    else:
-        fleft_ = hleft_
-        fright_ = hright_
+    fleft_ = hleft_
+    fright_ = hright_
     #return formatted header and footer
     return fleft_, fright_, hright_, hleft_, head, foot
-header = 'Column 1'
-footer = 'End Column 1'
+header = 'The Shining Column of Data'
+footer = 'The red typewriter is typing by itself'
 filler = '-'
-corner = '+'
-lines = ['data is here','more data on this second row','even more']
+corner = '*'
+lines = ['all code and no compile makes jack nullboy',
+		'all code and no compile makesjack a null boy',
+		'all code and compile makes jack a null',
+		'all code and no compile makes jack a null boyyy',
+		'all code and no compile makes jack a null b',
+		'all code and no compile makes jack a null bo']
 maxlinelen = len(max(lines, key = len))
 if len(header) > maxlinelen:
-    maxlinelen = len(header)
-width = int(maxlinelen/2)+1
-head_, foot_ = padder(header = header, footer = '', filler = filler, count = width)
+    maxlinelen = len(header)+1
+    width = int(maxlinelen/2)+1
+    print(width)
+elif len(footer) > maxlinelen:
+	maxlinelen = len(footer)+1
+	width = int(maxlinelen/2)+1
+	print(width)
+else:
+  diff = int((maxlinelen - len(max(header, footer)))/2)
+  if diff % 2 == 0:
+  	width = int(maxlinelen/diff) + (divmod(diff, 2)[0] - divmod(diff, 2)[1]) 
+  else:
+  	width = int(maxlinelen/diff)+1 + divmod(diff, 2)[0]  + divmod(diff, 2)[1]
+head_, foot_ = padder(header = header, footer = footer, filler = filler, count = width)
 fleft, fright, hright, hleft, head, foot = columnize(max_line_len = maxlinelen, width=int(maxlinelen/2)+1, head = head_, foot = foot_)
 #print out column 1
-print(hleft + head + hright)
-for line in lines:
-    print('| ' + line.ljust(maxlinelen,' ') + ' |')
-print(fleft + foot + fright)
+for idx, line in enumerate(lines):
+	if idx == 0:
+		print(hleft + head + hright)
+		print('| ' + line.ljust(maxlinelen,' ') + ' |')
+	elif idx == len(lines)-1:
+		print('| ' + line.ljust(maxlinelen,' ') +' |')
+		print(fleft + foot + fright)
+	else:
+		print('| ' + line.ljust(maxlinelen,' ') + ' |')
+#print(fleft + foot + fright)
