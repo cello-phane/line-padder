@@ -1,6 +1,6 @@
 def padder(header = "begin", footer = "end", filler = "-", count = 0):
     if count == 0:
-        count = int((max(len(header), len(footer)) - min(len(header), len(footer))) /2) + 4
+        count = int((max(len(header), len(footer)) - min(len(header), len(footer))) /2)
     if not filler:
         filler = ' '
     pads = filler * count
@@ -34,8 +34,9 @@ def padder(header = "begin", footer = "end", filler = "-", count = 0):
         if len(footer_) % 2 == 0 and len(header_) % 2 != 0:
             header_ += filler
     return header_, footer_
-def columnize(max_line_len, head, foot, corner="*"):
+def columnize(max_line_len, head, foot):
     fill_ws = int(abs(len(head) - max_line_len)/2) or 1
+    corner = '*'
     filler = "-"
     if len(head) % 2 == 0:
         if len(head) > (fill_ws*2) + max_line_len:
@@ -63,23 +64,20 @@ def columnize(max_line_len, head, foot, corner="*"):
     fright_ = hright_
     #return formatted header and footer
     return fleft_, fright_, hright_, hleft_, head, foot
-def print_padded(strings_, header_, footer_, filler="-", corner="*"):
+def print_padded(strings_, header_, footer_):
     maxlinelen = len(max(strings_, key = len))
     minlinelen = len(min(strings_, key = len))
     (head,foot) = padder(header = header_, footer = footer_, filler = "-", count = 0)
-    fleft_, fright_, hright_, hleft_, head, foot = columnize(maxlinelen, head, foot, corner)
+    fleft_, fright_, hright_, hleft_, head, foot = columnize(maxlinelen, head, foot)
     len_of = len(hleft_ + head + hright_)
-    expand_len_t = int((maxlinelen - len_of) // 2)+1
-    expand_len_b = int((maxlinelen - len_of) // 2)+1
-    print(hleft_ + (expand_len_t * filler) + head + (expand_len_t * filler) + hright_)
+    expand_len_t = int((maxlinelen - len_of) // 2)
+    expand_len_b = int((maxlinelen - len_of) // 2)
+    print(hleft_ + (expand_len_t * '-') + head + (expand_len_t * '-') + hright_)
     for l in strings_:
-        print(" " + l)
-    print(hleft_ + (expand_len_b * filler) + foot + (expand_len_b * filler) + hright_)      
-lines = ['all code and no compile makes jack nullboy',
-		'all code and no compile makesjack a null boy',
-		'all code and compile makes jack a null',
-		'all code and no compile makes jack a null boyyy',
-		'all code and no compile makes jack a null byy',
-		'all code and no compile makes jack a null bo']
+        print(l)
+    print(fleft_ + (expand_len_b * '-') + foot + (expand_len_b * '-') + fright_)
+lines = ['This is sample text',
+        'The header and footer auto-resizes',
+        'according to text length']
 #print out column 1
-print_padded(strings_=lines, header_="begin", footer_="end", filler="-", corner="*")
+print_padded(lines, header_="Header is padded with a char", footer_="Footer is padded too")
