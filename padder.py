@@ -34,9 +34,8 @@ def padder(header = "begin", footer = "end", filler = "-", count = 0):
         if len(footer_) % 2 == 0 and len(header_) % 2 != 0:
             header_ += filler
     return header_, footer_
-def columnize(max_line_len, head, foot):
+def columnize(max_line_len, head, foot, corner="*"):
     fill_ws = int(abs(len(head) - max_line_len)/2) or 1
-    corner = '*'
     filler = "-"
     if len(head) % 2 == 0:
         if len(head) > (fill_ws*2) + max_line_len:
@@ -64,18 +63,18 @@ def columnize(max_line_len, head, foot):
     fright_ = hright_
     #return formatted header and footer
     return fleft_, fright_, hright_, hleft_, head, foot
-def print_padded(strings_, header_, footer_):
+def print_padded(strings_, header_, footer_, filler="-", corner="*"):
     maxlinelen = len(max(strings_, key = len))
     minlinelen = len(min(strings_, key = len))
     (head,foot) = padder(header = header_, footer = footer_, filler = "-", count = 0)
-    fleft_, fright_, hright_, hleft_, head, foot = columnize(maxlinelen, head, foot)
+    fleft_, fright_, hright_, hleft_, head, foot = columnize(maxlinelen, head, foot, corner)
     len_of = len(hleft_ + head + hright_)
     expand_len_t = int((maxlinelen - len_of) // 2)+1
     expand_len_b = int((maxlinelen - len_of) // 2)+1
-    print(hleft_ + (expand_len_t * '-') + head + (expand_len_t * '-') + hright_)
+    print(hleft_ + (expand_len_t * filler) + head + (expand_len_t * filler) + hright_)
     for l in strings_:
         print(" " + l)
-    print(hleft_ + (expand_len_b * '-') + foot + (expand_len_b * '-') + hright_)      
+    print(hleft_ + (expand_len_b * filler) + foot + (expand_len_b * filler) + hright_)      
 lines = ['all code and no compile makes jack nullboy',
 		'all code and no compile makesjack a null boy',
 		'all code and compile makes jack a null',
@@ -83,4 +82,4 @@ lines = ['all code and no compile makes jack nullboy',
 		'all code and no compile makes jack a null byy',
 		'all code and no compile makes jack a null bo']
 #print out column 1
-print_padded(lines, header_="begin", footer_="end")
+print_padded(strings_=lines, header_="begin", footer_="end", filler="-", corner="*")
