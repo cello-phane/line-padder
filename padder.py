@@ -1,6 +1,6 @@
 def padder(header = "begin", footer = "end", filler = "-", count = 0):
     if count == 0:
-        count = int((max(len(header), len(footer)) - min(len(header), len(footer))) /2)
+        count = int((max(len(header), len(footer)) - min(len(header), len(footer))) /2) + 2
     if not filler:
         filler = ' '
     pads = filler * count
@@ -66,11 +66,11 @@ def columnize(max_line_len, head, foot):
     return fleft_, fright_, hright_, hleft_, head, foot
 def print_padded(strings_, header_, footer_):
     (head,foot) = padder(header = header_, footer = footer_, filler = "-", count = 0)
-    maxlinelen = len(max(strings_, key = len)) + 4
+    maxlinelen = len(max(strings_, key = len))
     if len(head) > maxlinelen:
-        maxlinelen = len(head) + 2
+        maxlinelen = len(head)
     else:
-        maxlinelen += 2
+        maxlinelen += 4
     minlinelen = len(min(strings_, key = len))
     fleft_, fright_, hright_, hleft_, head, foot = columnize(maxlinelen, head, foot)
     len_of = len(hleft_ + head + hright_)
@@ -80,8 +80,9 @@ def print_padded(strings_, header_, footer_):
     for l in strings_:
         print(f'| {l: <{maxlinelen-3}}|')
     print(fleft_ + (expand_len_b * '-') + foot + (expand_len_b * '-') + fright_)
-lines = ['This is sample text',
+lines = ['This is sample text:',
         'Column text auto-resizes',
-        'according to text length']
+        'according to any cell\'s',
+        'maximum length']
 #print out column 1
-print_padded(lines, header_="The header and footer", footer_="also auto-resizes the column")
+print_padded(lines, header_="Sample", footer_="This is a footer")
