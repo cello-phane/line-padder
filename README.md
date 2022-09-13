@@ -1,12 +1,17 @@
 # line-padder
-Adds padded characters to 2 lines(`header` and `footer`).
-The header and footer should equal in size, because the wider string out of the 2 should force the other to change its size.
+Makes a grid of text from a python list:
 
-For the columnize function, add the len of the widest line/row, and make it display with auto-sizing as well.
-The example in the code would print this:
+lines = ['This is sample text:',
+        'Column text auto-resizes',
+        'according to any cell\'s',
+        'maximum length']
+#print out column 1
+print_padded(lines, header_="Symmetrical padding", footer_="footer")
 
-+-----------Column 1-----------+  
-| data is here                 |  
-| more data on this second row |  
-| even more                    |  
-+---------End Column 1---------+  
+//Output:
+-----Symmetrical padding----
+| This is sample text:     |
+| Column text auto-resizes |
+| according to any cell's  |
+| maximum length           |
+-----------footer-----------
