@@ -1,4 +1,4 @@
-def padder(header = "begin", footer = "end", filler = "-", count = 0):
+def padder(header = "", footer = "", filler = "-", count = 0):
     if count == 0:
         count = int((max(len(header), len(footer)) - min(len(header), len(footer))) /2) + 2
     if not filler:
@@ -78,11 +78,11 @@ def print_padded(strings_, header_, footer_):
     expand_len_b = int((maxlinelen - len_of) // 2)
     print(hleft_ + (expand_len_t * '-') + head + (expand_len_t * '-') + hright_)
     for l in strings_:
-        print(f'| {l: <{maxlinelen-3}}|')
+        print(f'| {l: <{maxlinelen-4}} |')
     print(fleft_ + (expand_len_b * '-') + foot + (expand_len_b * '-') + fright_)
 lines = ['This is sample text:',
         'Column text auto-resizes',
         'according to any cell\'s',
         'maximum length']
 #print out column 1
-print_padded(lines, header_="Symmetrical padding", footer_="This is a footer")
+print_padded(lines, header_="Symmetrical padding", footer_="footer")
