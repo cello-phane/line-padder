@@ -78,7 +78,11 @@ def print_padded(strings_, header_, footer_):
     expand_len_b = int((maxlinelen - len_of) // 2)
     print(hleft_ + (expand_len_t * '-') + head + (expand_len_t * '-') + hright_)
     for l in strings_:
-        print(f'| {l: <{maxlinelen-4}} |')
+        if len(l) < maxlinelen:
+            ws_ = " " * int((maxlinelen - len(l)) - 4)
+            print('| ' + l + ws_ + " |")
+        else:
+            print('| ' + l + ' |')
     print(fleft_ + (expand_len_b * '-') + foot + (expand_len_b * '-') + fright_)
 lines = ['This is sample text:',
         'Column text auto-resizes',
