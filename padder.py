@@ -73,8 +73,12 @@ def print_padded(strings_, header_, footer_):
     minlinelen = len(min(strings_, key = len))
     fleft_, fright_, hright_, hleft_, head, foot = columnize(maxlinelen, head, foot, corner_, filler_)
     len_of = len(hleft_ + head + hright_)
-    expand_len_t = int((maxlinelen - len_of) // 2) + 1
-    expand_len_b = int((maxlinelen - len_of) // 2) + 1
+    if sidel_ or sider_:
+        side_lens = int(int((len(sider_) + len(sidel_) // 2) + 1) if int(len(sider_) + len(sidel_) // 2) % 2 != 0 else int((len(sider_) + len(sidel_) // 2)) + 2) // 2
+    else:
+        side_lens = 0
+    expand_len_t = int((maxlinelen - len_of) // 2) + side_lens
+    expand_len_b = int((maxlinelen - len_of) // 2) + side_lens
     print(hleft_ + (expand_len_t * filler_) + head + (expand_len_t * filler_) + hright_)
     for l in strings_:
         if l:
@@ -83,6 +87,8 @@ def print_padded(strings_, header_, footer_):
                 print(sidel_ + l + ws_ + sider_)
             else:
                 print(sidel_ + l + sider_)
+        else:
+            print('')
     print(fleft_ + (expand_len_b * filler_) + foot + (expand_len_b * filler_) + fright_)
 lines = ['This is sample text:',
         'Column text auto-resizes',
