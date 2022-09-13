@@ -68,7 +68,7 @@ def print_padded(strings_, header_, footer_):
     (head,foot) = padder(header = header_, footer = footer_, filler = "-", count = 0)
     maxlinelen = len(max(strings_, key = len))
     if len(head) > maxlinelen:
-        maxlinelen = len(head)
+        maxlinelen = len(head) + 2
     else:
         maxlinelen += 4
     minlinelen = len(min(strings_, key = len))
@@ -85,4 +85,4 @@ lines = ['This is sample text:',
         'according to any cell\'s',
         'maximum length']
 #print out column 1
-print_padded(lines, header_="Sample", footer_="This is a footer")
+print_padded(lines, header_="Symmetrical padding", footer_="This is a footer")
