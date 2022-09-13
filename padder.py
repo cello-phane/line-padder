@@ -65,19 +65,23 @@ def columnize(max_line_len, head, foot):
     #return formatted header and footer
     return fleft_, fright_, hright_, hleft_, head, foot
 def print_padded(strings_, header_, footer_):
-    maxlinelen = len(max(strings_, key = len))
-    minlinelen = len(min(strings_, key = len))
     (head,foot) = padder(header = header_, footer = footer_, filler = "-", count = 0)
+    maxlinelen = len(max(strings_, key = len)) + 4
+    if len(head) > maxlinelen:
+        maxlinelen = len(head) + 2
+    else:
+        maxlinelen += 2
+    minlinelen = len(min(strings_, key = len))
     fleft_, fright_, hright_, hleft_, head, foot = columnize(maxlinelen, head, foot)
     len_of = len(hleft_ + head + hright_)
     expand_len_t = int((maxlinelen - len_of) // 2)
     expand_len_b = int((maxlinelen - len_of) // 2)
     print(hleft_ + (expand_len_t * '-') + head + (expand_len_t * '-') + hright_)
     for l in strings_:
-        print(l)
+        print(f'| {l: <{maxlinelen-3}}|')
     print(fleft_ + (expand_len_b * '-') + foot + (expand_len_b * '-') + fright_)
 lines = ['This is sample text',
-        'The header and footer auto-resizes',
+        'Column text auto-resizes',
         'according to text length']
 #print out column 1
-print_padded(lines, header_="Header is padded with a char", footer_="Footer is padded too")
+print_padded(lines, header_="The header and footer", footer_="also auto-resizes the column")
