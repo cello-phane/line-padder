@@ -32,7 +32,7 @@ def padder(header = "", footer = "", filler = "", count = ""):
         if len(footer_) % 2 == 0 and len(header_) % 2 != 0:
             header_ += filler
     return header_, footer_
-def columnize(max_line_len, head, foot, corner=''):
+def columnize(max_line_len, head, foot, corner='', filler=''):
     fill_ws = int(abs(len(head) - max_line_len)/2) or 1
     if len(head) % 2 == 0:
         if len(head) > (fill_ws*2) + max_line_len:
@@ -71,7 +71,7 @@ def print_padded(strings_, header_, footer_):
     if len(head) > maxlinelen:
         maxlinelen = len(head)
     minlinelen = len(min(strings_, key = len))
-    fleft_, fright_, hright_, hleft_, head, foot = columnize(maxlinelen, head, foot, corner_)
+    fleft_, fright_, hright_, hleft_, head, foot = columnize(maxlinelen, head, foot, corner_, filler_)
     len_of = len(hleft_ + head + hright_)
     expand_len_t = int((maxlinelen - len_of) // 2) + 1
     expand_len_b = int((maxlinelen - len_of) // 2) + 1
