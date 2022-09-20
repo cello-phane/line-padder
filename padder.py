@@ -1,4 +1,4 @@
-def padder(header = "", footer = "", filler = "", count = ""):
+def padder(header = "", footer = "", filler = "", count = 0):
     if not count or count == 0:
         count = int((max(len(header), len(footer)) - min(len(header), len(footer))) // 2) + 2
     pads = filler * count
@@ -62,7 +62,7 @@ def columnize(max_line_len, head, foot, corner='', filler=''):
     return fleft_, fright_, hright_, hleft_, head, foot
 def print_padded(strings_, header_, footer_):
     filler_ = '-'
-    corner_ = '-'
+    corner_ = '~'
     sidel_ = '| '
     sider_ = ' |'
     count_ = 0 #this 0 says to auto-resize the column
