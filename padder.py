@@ -33,7 +33,7 @@ def padder(header = "", footer = "", filler = "", count = ""):
             header_ += filler
     return header_, footer_
 def columnize(max_line_len, head, foot, corner='', filler=''):
-    fill_ws = int(abs(len(head) - max_line_len)/2) or 1
+    fill_ws = int(abs(len(head) - max_line_len)/2)
     if len(head) % 2 == 0:
         if len(head) > (fill_ws*2) + max_line_len:
             if not head:
@@ -54,8 +54,8 @@ def columnize(max_line_len, head, foot, corner='', filler=''):
         hright_ = corner
         if max_line_len % 2 == 0:
             if max_line_len > len(head):
-                head = head[:-1]
-                foot = foot[:-1]
+                head = head + filler
+                foot = foot + filler
     fleft_ = hleft_
     fright_ = hright_
     #return formatted header and footer
@@ -63,8 +63,8 @@ def columnize(max_line_len, head, foot, corner='', filler=''):
 def print_padded(strings_, header_, footer_):
     filler_ = '-'
     corner_ = '-'
-    sidel_ = '|'
-    sider_ = '|'
+    sidel_ = '| '
+    sider_ = ' |'
     count_ = 0 #this 0 says to auto-resize the column
     (head,foot) = padder(header = header_, footer = footer_, filler = filler_, count = count_)
     maxlinelen = len(max(strings_, key = len))
