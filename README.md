@@ -16,10 +16,10 @@ lines = ['This is sample text:',
 #print out column 1
 print_padded(lines, header_="Symmetrical padding", footer_="footer")
 #Output:
-~----Symmetrical padding---~
+~---Symmetrical padding----~
 | This is sample text:     |
 | Column text auto-resizes |
 | according to any cell's  |
 | maximum length           |
-~----------footer----------~
+~---------footer-----------~
 ```
