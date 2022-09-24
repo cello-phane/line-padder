@@ -1,6 +1,6 @@
 def padder(header = "", footer = "", filler = "", count = 0):
     if not count or count == 0:
-        count = int((max(len(header), len(footer)) - min(len(header), len(footer))) // 2) + 2
+        count = int((max(len(header), len(footer)) - min(len(header), len(footer))) // 2)
     pads = filler * count
     len_pads = len(pads)
     len_header = len(header)
