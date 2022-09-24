@@ -7,7 +7,7 @@ def padder(header = "", footer = "", filler = "", count = 0):
     len_footer = len(footer)
     padded_header_size = len_header + len_pads
     padded_footer_size = len_footer + len_pads
-    offset = int(abs(len_header - len_footer) / 2)
+    offset = int(abs(len_header - len_footer) // 2)
     fillc = 0
     if padded_header_size >= padded_footer_size:
         if padded_header_size != (fillc * 2) + len_header:
@@ -33,7 +33,7 @@ def padder(header = "", footer = "", filler = "", count = 0):
             header_ += filler
     return header_, footer_
 def columnize(max_line_len, head, foot, corner='', filler=''):
-    fill_ws = int(abs(len(head) - max_line_len)/2)
+    fill_ws = int(abs(len(head) - max_line_len) // 2)
     if len(head) % 2 == 0:
         if len(head) > (fill_ws*2) + max_line_len:
             if not head:
